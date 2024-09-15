@@ -4,6 +4,8 @@
 <head>
     <meta charset="UTF-8">
     <title>RAPR Investment Calculator</title>
+    <!-- Viewport Meta Tag -->
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <style>
         /* Font Definitions */
         @font-face {
@@ -21,7 +23,6 @@
         html {
             height: 100%;
             margin: 0;
-            overflow: hidden;
             background: url('bg.png') no-repeat center center fixed;
             background-size: cover;
             font-family: 'ALD721L', Arial, sans-serif;
@@ -31,8 +32,8 @@
         h1,
         h2 {
             font-family: 'Slipstream', Arial, sans-serif;
-            font-size: 28px;
-            margin-bottom: 8px;
+            font-size: 1.75rem;
+            margin-bottom: 0.5rem;
             font-weight: normal;
             font-style: italic;
             letter-spacing: 0.05em;
@@ -45,35 +46,40 @@
         /* Container Styles */
         .title-container,
         .holding-container {
-            margin: 10px auto;
-            padding: 15px;
+            margin: 0.5rem auto;
+            padding: 1rem;
             border: 3px solid #000;
             background-color: #fff;
             box-sizing: border-box;
+            max-width: 600px;
+            width: 90%;
         }
 
         .title-container {
             text-align: center;
-            max-width: 40%;
-        }
-
-        .holding-container {
-            max-width: 400px;
         }
 
         /* Table Styles */
         table {
             width: 100%;
             border-collapse: collapse;
+            table-layout: fixed;
+            margin-right: 40%;
         }
 
         td {
-            padding: 5px;
+            padding: 0.5rem;
         }
 
         td:first-child {
             text-align: right;
-            padding-right: 10px;
+            padding-right: 0.5rem;
+        }
+
+
+        s td:nth-child(2) {
+            max-width: 20%;
+            /* Second cell takes 10% */
         }
 
         td[colspan="2"] {
@@ -83,24 +89,24 @@
         /* Input and Button Styles */
         input[type="number"] {
             width: 100%;
-            padding: 6px;
+            padding: 0.5rem;
             box-sizing: border-box;
             border: 2px solid #000;
         }
 
         button {
-            padding: 10px;
-            margin-top: 10px;
+            padding: 0.5rem;
+            margin-top: 0.5rem;
             background-color: #fff;
             border: 2px solid #000;
             cursor: pointer;
-            font-size: 15px;
+            font-size: 1rem;
             font-family: 'Slipstream', Arial, sans-serif;
         }
 
         /* Result Styles */
         .result {
-            padding: 6px;
+            padding: 0.5rem;
             line-height: 1.8;
         }
 
@@ -110,6 +116,57 @@
 
         .loss {
             color: red;
+        }
+
+        /* Media Queries for Responsiveness */
+        @media screen and (max-width: 768px) {
+
+            h1,
+            h2 {
+                font-size: 1.5rem;
+            }
+
+            .title-container,
+            .holding-container {
+                padding: 0.75rem;
+            }
+
+            td {
+                padding: 0.25rem;
+            }
+
+            td:first-child {
+                padding-right: 0.25rem;
+            }
+
+            input[type="number"] {
+                padding: 0.25rem;
+            }
+
+            button {
+                padding: 0.5rem;
+                font-size: 0.9rem;
+            }
+        }
+
+        @media screen and (max-width: 480px) {
+
+            h1,
+            h2 {
+                font-size: 1.25rem;
+            }
+
+            button {
+                font-size: 0.8rem;
+            }
+        }
+
+        @media screen and (max-width: 600px) {
+
+            body,
+            html {
+                background-attachment: scroll;
+            }
         }
     </style>
 </head>
@@ -138,7 +195,7 @@
                             onchange="updateFields('rapr', 'opt1')"></td>
                 </tr>
                 <tr>
-                    <td><label for="opt1_price_per_rapr">Purchase Price per RAPR ($):</label></td>
+                    <td><label for="opt1_price_per_rapr">Price per RAPR ($):</label></td>
                     <td><input type="number" id="opt1_price_per_rapr" value="14" step="0.01"
                             onchange="updateFields('price', 'opt1')"></td>
                 </tr>
@@ -151,7 +208,7 @@
                     <td><input type="number" id="opt1_hold_days" value="7" step="1"></td>
                 </tr>
                 <tr>
-                    <td><label for="opt1_market_price">Expected Market Price At Sale ($):</label></td>
+                    <td><label for="opt1_market_price">Market Price At Sale ($):</label></td>
                     <td><input type="number" id="opt1_market_price" value="14" step="0.01"></td>
                 </tr>
                 <tr>
@@ -166,7 +223,7 @@
             <h2>Tickets & Hold</h2>
             <table>
                 <tr>
-                    <td><label for="opt2_investment">Initial Investment ($):</label></td>
+                    <td><label for="opt2_investment">Initial ($):</label></td>
                     <td><input type="number" id="opt2_investment" value="160" step="0.01"
                             onchange="updateFields('inv', 'opt2')"></td>
                 </tr>
@@ -176,7 +233,7 @@
                             onchange="updateFields('rapr', 'opt2')"></td>
                 </tr>
                 <tr>
-                    <td><label for="opt2_price_per_rapr">Effective Price per RAPR ($):</label></td>
+                    <td><label for="opt2_price_per_rapr">Price per RAPR ($):</label></td>
                     <td><input type="number" id="opt2_price_per_rapr" value="12" step="0.01"
                             onchange="updateFields('price', 'opt2')"></td>
                 </tr>
@@ -185,7 +242,7 @@
                     <td><input type="number" id="opt2_wait_days" value="3" step="1"></td>
                 </tr>
                 <tr>
-                    <td><label for="opt2_hold_days">Total Hold Period (days):</label></td>
+                    <td><label for="opt2_hold_days">Hold Period (days):</label></td>
                     <td><input type="number" id="opt2_hold_days" value="7" step="1"></td>
                 </tr>
                 <tr>
@@ -193,7 +250,7 @@
                     <td><input type="number" id="opt2_apr" value="102" step="0.01"></td>
                 </tr>
                 <tr>
-                    <td><label for="opt2_market_price">Expected Market Price At Sale ($):</label></td>
+                    <td><label for="opt2_market_price">Market Price At Sale ($):</label></td>
                     <td><input type="number" id="opt2_market_price" value="14" step="0.01"></td>
                 </tr>
                 <tr>
@@ -243,10 +300,10 @@
             let profitLossClass = profitLoss < 0 ? 'loss' : 'profit';
 
             resultDiv.innerHTML = `
-                <strong>Total RAPR after hold period:</strong> ${isNaN(totalRAPR) ? 'Check values' : totalRAPR.toFixed(4)} RAPR<br>
-                <strong>Total Value after hold period:</strong> ${isNaN(totalValue) ? 'Check values' : `$${totalValue.toFixed(2)}`}<br>
+                <strong>Total RAPR:</strong> ${isNaN(totalRAPR) ? 'Check values' : totalRAPR.toFixed(4)}<br>
+                <strong>Value:</strong> ${isNaN(totalValue) ? 'Check values' : `$${totalValue.toFixed(2)}`}<br>
                 <span class="${profitLossClass}"><strong>${profitLoss < 0 ? 'Loss' : 'Profit'}:</strong> $${isNaN(profitLoss) ? 'Check values' : profitLoss.toFixed(2)}</span><br>
-                <strong>Breakeven Price per RAPR:</strong> $${isNaN(breakevenPrice) ? 'Check values' : breakevenPrice.toFixed(2)}
+                <strong>Breakeven:</strong> $${isNaN(breakevenPrice) ? 'Check values' : breakevenPrice.toFixed(2)}
             `;
         }
 
@@ -273,10 +330,10 @@
             let profitLossClass = profitLoss < 0 ? 'loss' : 'profit';
 
             resultDiv.innerHTML = `
-                <strong>Total RAPR after hold period:</strong> ${isNaN(totalRAPR) ? 'Check values' : totalRAPR.toFixed(4)} RAPR<br>
-                <strong>Total Value after hold period:</strong> ${isNaN(totalValue) ? 'Check values' : `$${totalValue.toFixed(2)}`}<br>
+                <strong>Total RAPR:</strong> ${isNaN(totalRAPR) ? 'Check values' : totalRAPR.toFixed(4)}<br>
+                <strong>Value:</strong> ${isNaN(totalValue) ? 'Check values' : `$${totalValue.toFixed(2)}`}<br>
                 <span class="${profitLossClass}"><strong>${profitLoss < 0 ? 'Loss' : 'Profit'}:</strong> $${isNaN(profitLoss) ? 'Check values' : profitLoss.toFixed(2)}</span><br>
-                <strong>Breakeven Price per RAPR:</strong> $${isNaN(breakevenPrice) ? 'Check values' : breakevenPrice.toFixed(2)}
+                <strong>Breakeven:</strong> $${isNaN(breakevenPrice) ? 'Check values' : breakevenPrice.toFixed(2)}
             `;
         }
     </script>
