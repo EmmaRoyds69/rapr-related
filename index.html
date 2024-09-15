@@ -1,398 +1,220 @@
 <!DOCTYPE html>
 <html lang="en">
+
 <head>
     <meta charset="UTF-8">
     <title>RAPR Investment Calculator</title>
-  <style>
-@font-face {
-    font-family: Slipstream;
-    src: url('7046df55374e709021c7.TTF') format('truetype');
-}
-@font-face {
-    font-family: ALD721L;
-    src: url('64e0e163b2b784ad64eb.TTF') format('truetype');
-}
-
-body, html {
-    width: 150px;
-    font-family: ALD721L, Arial, sans-serif;
-    height: 100%;
-    margin: 0;
-    background: url('b03bd4ba416048101131.png') no-repeat center center;
-    background-attachment: fixed;
-}
-
-#app {
-    display: flex;
-    flex-direction: column;
-    height: 100vh;
-    justify-content: space-between;
-}
-
-#topBar {
-    display: flex;
-    justify-content: space-between;
-    background-color: transparent;
-    padding: 10px;
-    position: fixed;
-    width: 100%;
-    z-index: 1001;
-}
-
-#exitButton, #walletButton {
-    background-color: #fff;
-    border: 3px solid #000;
-    color: #000;
-    cursor: pointer;
-    font-family: Slipstream, Arial, sans-serif;
-    padding: 10px;
-    text-align: center;
-    width: 120px;
-}
-
-.center-container {
-    display: flex;
-    align-items: center;
-    justify-content: center;
-    flex-grow: 1;
-    margin-top: 60px; /* Space for the topBar */
-}
-
-#content {
-     /* Restrict content width to 80 characters */
-    max-width: 90%;
-    margin: 0 auto;
-    background-color: rgba(255, 255, 255, 0.95);
-    padding: 20px;
-    border: 3px solid #000;
-    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);
-    display: flex;
-    flex-direction: column;
-    gap: 20px;
-}
-
-h1, h2 {
-    color: #000;
-    text-align: center;
-    font-family: Slipstream, Arial, sans-serif;
-    font-size: 1.5em;
-}
-
-label {
-    display: block;
-    margin-top: 10px;
-    font-size: 0.85em;
-}
-
-input[type="number"] {
-    width: 100%;
-    padding: 6px;
-    margin: 5px 0;
-    box-sizing: border-box;
-    border: 2px solid #000;
-    font-size: 0.9em;
-}
-
-button {
-    width: 100%;
-    padding: 10px;
-    background-color: #fff;
-    border: 2px solid #000;
-    cursor: pointer;
-    font-size: 1em;
-    font-family: Slipstream, Arial, sans-serif;
-}
-
-button:hover {
-    background-color: #f0f0f0;
-}
-
-.result {
-    margin-top: 20px;
-    padding: 10px;
-    background-color: #fff;
-    border: 2px solid #000;
-    font-size: 0.9em;
-}
-
-#footer {
-    text-align: center;
-    background-color: #fff;
-    border-top: 3px solid #000;
-    padding: 10px;
-}
-
-#footer p {
-    margin: 5px 0;
-}
-
-#footer .social a {
-    color: #000;
-    margin: 0 10px;
-    text-decoration: none;
-}
-
-@media (max-width: 480px) {
-    h1, h2 {
-        font-size: 1.2em;
-    }
-    #content {
-        padding: 10px;
-        width: 95%;
-    }
-    input[type="number"], button {
-        font-size: 0.8em;
-        padding: 5px;
-    }
-    .result {
-        font-size: 0.8em;
-    }
-    #exitButton, #walletButton {
-        width: 100px;
-    }
-}</style>
-</head>
-<body>
-
-    <h1>RetardedAPR Investment Calculator</h1>
-    <p>Use this calculator to compare different investment options for RAPR tokens.</p>
-
-    <div class="option">
-        <h2>Option 1</h2>
-        <label>
-            Initial Investment ($):
-            <input type="number" id="opt1_investment" value="140" step="0.01">
-        </label>
-        <label>
-            RAPR Purchased:
-            <input type="number" id="opt1_rapr" value="10" step="0.0001">
-        </label>
-        <label>
-            Purchase Price per RAPR ($):
-            <input type="number" id="opt1_price_per_rapr" value="14" step="0.01">
-        </label>
-        <label>
-            APR (%):
-            <input type="number" id="opt1_apr" value="102" step="0.01">
-        </label>
-        <label>
-            Hold Period (days):
-            <input type="number" id="opt1_hold_days" value="7" step="1">
-        </label>
-        <label>
-            Expected Market Price After Hold Period ($):
-            <input type="number" id="opt1_market_price" value="14" step="0.01">
-        </label>
-        <button onclick="calculateOption1()">Calculate Option 1</button>
-        <div id="opt1_result" class="result"></div>
-    </div>
-
-    <div class="option">
-        <h2>Option 2</h2>
-        <label>
-            Initial Investment ($):
-            <input type="number" id="opt2_investment" value="160" step="0.01">
-        </label>
-        <label>
-            RAPR Received:
-            <input type="number" id="opt2_rapr" value="13.33" step="0.0001">
-        </label>
-        <label>
-            Effective Price per RAPR ($):
-            <input type="number" id="opt2_price_per_rapr" value="12" step="0.01">
-        </label>
-        <label>
-            Waiting Period Before Receiving RAPR (days):
-            <input type="number" id="opt2_wait_days" value="3" step="1">
-        </label>
-        <label>
-            Total Hold Period (days):
-            <input type="number" id="opt2_hold_days" value="7" step="1">
-        </label>
-        <label>
-            APR (%) for Remaining Period:
-            <input type="number" id="opt2_apr" value="102" step="0.01">
-        </label>
-        <label>
-            Expected Market Price After Hold Period ($):
-            <input type="number" id="opt2_market_price" value="14" step="0.01">
-        </label>
-        <button onclick="calculateOption2()">Calculate Option 2</button>
-        <div id="opt2_result" class="result"></div>
-    </div>
-
-    <script>
-        function calculateOption1() {
-            // Get input values
-            let investment = parseFloat(document.getElementById('opt1_investment').value);
-            let raprPurchased = parseFloat(document.getElementById('opt1_rapr').value);
-            let apr = parseFloat(document.getElementById('opt1_apr').value);
-            let holdDays = parseInt(document.getElementById('opt1_hold_days').value);
-            let marketPrice = parseFloat(document.getElementById('opt1_market_price').value);
-
-            // Calculate daily interest rate
-            let dailyInterestRate = apr / 365 / 100;
-            // Total yield over hold period
-            let totalYield = dailyInterestRate * holdDays;
-            // RAPR earned
-            let raprEarned = raprPurchased * totalYield;
-            // Total RAPR after hold period
-            let totalRAPR = raprPurchased + raprEarned;
-            // Total value after hold period
-            let totalValue = totalRAPR * marketPrice;
-            // Profit or Loss
-            let profitLoss = totalValue - investment;
-            // Breakeven Price
-            let breakevenPrice = investment / totalRAPR;
-
-            // Display results
-            let resultDiv = document.getElementById('opt1_result');
-            resultDiv.innerHTML = `
-                <strong>Total RAPR after hold period:</strong> ${totalRAPR.toFixed(4)} RAPR<br>
-                <strong>Total Value after hold period:</strong> $${totalValue.toFixed(2)}<br>
-                <strong>Profit/Loss:</strong> $${profitLoss.toFixed(2)}<br>
-                <strong>Breakeven Price per RAPR:</strong> $${breakevenPrice.toFixed(4)}
-            `;
-        }
-
-        function calculateOption2() {
-            // Get input values
-            let investment = parseFloat(document.getElementById('opt2_investment').value);
-            let raprReceived = parseFloat(document.getElementById('opt2_rapr').value);
-            let waitDays = parseInt(document.getElementById('opt2_wait_days').value);
-            let totalHoldDays = parseInt(document.getElementById('opt2_hold_days').value);
-            let apr = parseFloat(document.getElementById('opt2_apr').value);
-            let marketPrice = parseFloat(document.getElementById('opt2_market_price').value);
-
-            // Calculate the hold period after the waiting period
-            let remainingHoldDays = totalHoldDays - waitDays;
-            if (remainingHoldDays < 0) {
-                remainingHoldDays = 0;
-            }
-
-            // Calculate daily interest rate
-            let dailyInterestRate = apr / 365 / 100;
-
-            // Total yield over remaining hold period
-            let totalYield = dailyInterestRate * remainingHoldDays;
-
-            // RAPR earned during the remaining hold period
-            let raprEarned = raprReceived * totalYield;
-
-            // Total RAPR after hold period
-            let totalRAPR = raprReceived + raprEarned;
-
-            // Total value after hold period
-            let totalValue = totalRAPR * marketPrice;
-
-            // Profit or Loss
-<!DOCTYPE html>
-<html lang="en">
-<head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>RAPR Calculator</title>
     <style>
+        /* Font Definitions */
         @font-face {
-            font-family: Slipstream;
-            src: url('/7046df55374e709021c7.TTF') format('truetype');
+            font-family: 'Slipstream';
+            src: url('7046df55374e709021c7.TTF') format('truetype');
         }
+
         @font-face {
-            font-family: ALD721L;
-            src: url('/64e0e163b2b784ad64eb.TTF') format('truetype');
+            font-family: 'ALD721L';
+            src: url('64e0e163b2b784ad64eb.TTF') format('truetype');
         }
-        body, html {
-            font-family: ALD721L, Arial, sans-serif;
+
+        /* Global Styles */
+        body,
+        html {
             height: 100%;
             margin: 0;
-            background: url('/b03bd4ba416048101131.png') no-repeat center center fixed;
+            overflow: hidden;
+            background: url('bg.png') no-repeat center center fixed;
             background-size: cover;
+            font-family: 'ALD721L', Arial, sans-serif;
         }
-        .container {
-            max-width: 600px;
-            margin: 20px auto;
-            padding: 20px;
-            background-color: rgba(255, 255, 255, 0.9);
-            border: 3px solid #000;
-            box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);
+
+        /* Heading Styles */
+        h1,
+        h2 {
+            font-family: 'Slipstream', Arial, sans-serif;
+            font-size: 28px;
+            margin-bottom: 8px;
+            font-weight: normal;
+            font-style: italic;
+            letter-spacing: 0.05em;
         }
-        h1, h2 {
-            color: #000;
+
+        h2 {
             text-align: center;
-            font-family: Slipstream, Arial, sans-serif;
         }
-        label {
-            display: block;
-            margin-top: 10px;
-            font-size: 0.9em;
+
+        /* Container Styles */
+        .title-container,
+        .holding-container {
+            margin: 10px auto;
+            padding: 15px;
+            border: 3px solid #000;
+            background-color: #fff;
+            box-sizing: border-box;
         }
+
+        .title-container {
+            text-align: center;
+            max-width: 40%;
+        }
+
+        .holding-container {
+            max-width: 400px;
+        }
+
+        /* Table Styles */
+        table {
+            width: 100%;
+            border-collapse: collapse;
+        }
+
+        td {
+            padding: 5px;
+        }
+
+        td:first-child {
+            text-align: right;
+            padding-right: 10px;
+        }
+
+        td[colspan="2"] {
+            text-align: center;
+        }
+
+        /* Input and Button Styles */
         input[type="number"] {
             width: 100%;
-            padding: 8px;
-            margin: 5px 0;
+            padding: 6px;
             box-sizing: border-box;
             border: 2px solid #000;
         }
+
         button {
-            width: 100%;
             padding: 10px;
+            margin-top: 10px;
             background-color: #fff;
-            border: 3px solid #000;
+            border: 2px solid #000;
             cursor: pointer;
-            font-size: 1em;
-            font-family: Slipstream, Arial, sans-serif;
+            font-size: 15px;
+            font-family: 'Slipstream', Arial, sans-serif;
         }
-        button:hover { background-color: #f0f0f0; }
+
+        /* Result Styles */
         .result {
-            margin-top: 20px;
-            padding: 10px;
-            background-color: #fff;
-            border: 3px solid #000;
-            font-size: 0.9em;
+            padding: 6px;
+            line-height: 1.8;
+        }
+
+        .profit {
+            color: black;
+        }
+
+        .loss {
+            color: red;
         }
     </style>
 </head>
+
 <body>
+    <!-- Title Container -->
+    <div class="title-container">
+        <h1>R-APR Calculator</h1>
+        <p>Choose your path to revanchist, dynastic levels of generational wealth.</p>
+    </div>
 
-    <div class="container">
-        <h1>RAPR Investment Calculator</h1>
-
-        <!-- Market Buy and Stake Option -->
+    <!-- Holding Container -->
+    <div class="holding-container">
+        <!-- Buy & Stake -->
         <div>
-            <h2>Market Buy and Stake</h2>
-            <label>Initial Investment ($): <input type="number" id="opt1_inv" value="140" step="0.01" oninput="updateFields('inv', 'opt1')"></label>
-            <label>RAPR Purchased: <input type="number" id="opt1_rapr" value="10" step="0.0001" oninput="updateFields('rapr', 'opt1')"></label>
-            <label>Price per RAPR ($): <input type="number" id="opt1_price" value="14" step="0.01" oninput="updateFields('price', 'opt1')"></label>
-            <label>APR (%): <input type="number" id="opt1_apr" value="102" step="0.01"></label>
-            <label>Hold Period (days): <input type="number" id="opt1_days" value="7" step="1"></label>
-            <label>Market Price After Hold ($): <input type="number" id="opt1_mprice" value="14" step="0.01"></label>
-            <button onclick="calculateOption1()">Calculate</button>
+            <h2>Buy & Stake</h2>
+            <table>
+                <tr>
+                    <td><label for="opt1_investment">Initial Investment ($):</label></td>
+                    <td><input type="number" id="opt1_investment" value="140" step="0.01"
+                            onchange="updateFields('inv', 'opt1')"></td>
+                </tr>
+                <tr>
+                    <td><label for="opt1_rapr">RAPR Purchased:</label></td>
+                    <td><input type="number" id="opt1_rapr" value="10" step="0.0001"
+                            onchange="updateFields('rapr', 'opt1')"></td>
+                </tr>
+                <tr>
+                    <td><label for="opt1_price_per_rapr">Purchase Price per RAPR ($):</label></td>
+                    <td><input type="number" id="opt1_price_per_rapr" value="14" step="0.01"
+                            onchange="updateFields('price', 'opt1')"></td>
+                </tr>
+                <tr>
+                    <td><label for="opt1_apr">APR (%):</label></td>
+                    <td><input type="number" id="opt1_apr" value="102" step="0.01"></td>
+                </tr>
+                <tr>
+                    <td><label for="opt1_hold_days">Hold Period (days):</label></td>
+                    <td><input type="number" id="opt1_hold_days" value="7" step="1"></td>
+                </tr>
+                <tr>
+                    <td><label for="opt1_market_price">Expected Market Price At Sale ($):</label></td>
+                    <td><input type="number" id="opt1_market_price" value="14" step="0.01"></td>
+                </tr>
+                <tr>
+                    <td colspan="2"><button onclick="calculateOption1()">Calculate Buy & Stake</button></td>
+                </tr>
+            </table>
             <div id="opt1_result" class="result"></div>
         </div>
 
-        <!-- Tickets Option -->
+        <!-- Tickets & Hold -->
         <div>
-            <h2>Tickets</h2>
-            <label>Initial Investment ($): <input type="number" id="opt2_inv" value="160" step="0.01" oninput="updateFields('inv', 'opt2')"></label>
-            <label>RAPR Received: <input type="number" id="opt2_rapr" value="13.33" step="0.0001" oninput="updateFields('rapr', 'opt2')"></label>
-            <label>Price per RAPR ($): <input type="number" id="opt2_price" value="12" step="0.01" oninput="updateFields('price', 'opt2')"></label>
-            <label>Waiting Period (days): <input type="number" id="opt2_wait" value="3" step="1"></label>
-            <label>Total Hold Period (days): <input type="number" id="opt2_days" value="7" step="1"></label>
-            <label>APR (%): <input type="number" id="opt2_apr" value="102" step="0.01"></label>
-            <label>Market Price After Hold ($): <input type="number" id="opt2_mprice" value="14" step="0.01"></label>
-            <button onclick="calculateOption2()">Calculate</button>
+            <h2>Tickets & Hold</h2>
+            <table>
+                <tr>
+                    <td><label for="opt2_investment">Initial Investment ($):</label></td>
+                    <td><input type="number" id="opt2_investment" value="160" step="0.01"
+                            onchange="updateFields('inv', 'opt2')"></td>
+                </tr>
+                <tr>
+                    <td><label for="opt2_rapr">RAPR Received:</label></td>
+                    <td><input type="number" id="opt2_rapr" value="13.33" step="0.0001"
+                            onchange="updateFields('rapr', 'opt2')"></td>
+                </tr>
+                <tr>
+                    <td><label for="opt2_price_per_rapr">Effective Price per RAPR ($):</label></td>
+                    <td><input type="number" id="opt2_price_per_rapr" value="12" step="0.01"
+                            onchange="updateFields('price', 'opt2')"></td>
+                </tr>
+                <tr>
+                    <td><label for="opt2_wait_days">Waiting Period (days):</label></td>
+                    <td><input type="number" id="opt2_wait_days" value="3" step="1"></td>
+                </tr>
+                <tr>
+                    <td><label for="opt2_hold_days">Total Hold Period (days):</label></td>
+                    <td><input type="number" id="opt2_hold_days" value="7" step="1"></td>
+                </tr>
+                <tr>
+                    <td><label for="opt2_apr">APR (%) for Remaining Period:</label></td>
+                    <td><input type="number" id="opt2_apr" value="102" step="0.01"></td>
+                </tr>
+                <tr>
+                    <td><label for="opt2_market_price">Expected Market Price At Sale ($):</label></td>
+                    <td><input type="number" id="opt2_market_price" value="14" step="0.01"></td>
+                </tr>
+                <tr>
+                    <td colspan="2"><button onclick="calculateOption2()">Calculate Tickets & Hold</button></td>
+                </tr>
+            </table>
             <div id="opt2_result" class="result"></div>
         </div>
     </div>
 
+    <!-- JavaScript -->
     <script>
         function updateFields(changed, opt) {
-            let invField = document.getElementById(`${opt}_inv`);
-            let raprField = document.getElementById(`${opt}_rapr`);
-            let priceField = document.getElementById(`${opt}_price`);
+            const invField = document.getElementById(`${opt}_investment`);
+            const raprField = document.getElementById(`${opt}_rapr`);
+            const priceField = document.getElementById(`${opt}_price_per_rapr`);
+
             let inv = parseFloat(invField.value);
             let rapr = parseFloat(raprField.value);
             let price = parseFloat(priceField.value);
+
             if (changed === 'inv' && !isNaN(inv) && !isNaN(price) && price !== 0) {
                 raprField.value = (inv / price).toFixed(4);
             } else if (changed === 'rapr' && !isNaN(rapr) && !isNaN(price)) {
@@ -403,46 +225,61 @@ button:hover {
         }
 
         function calculateOption1() {
-            let inv = parseFloat(document.getElementById('opt1_inv').value);
-            let rapr = parseFloat(document.getElementById('opt1_rapr').value);
-            let apr = parseFloat(document.getElementById('opt1_apr').value);
-            let days = parseInt(document.getElementById('opt1_days').value);
-            let mprice = parseFloat(document.getElementById('opt1_mprice').value);
-            let dailyRate = apr / 365 / 100;
-            let totalRAPR = rapr + (rapr * dailyRate * days);
-            let totalValue = totalRAPR * mprice;
-            let profitLoss = totalValue - inv;
-            let breakeven = inv / totalRAPR;
-            document.getElementById('opt1_result').innerHTML = `
-                <strong>Total RAPR after hold:</strong> ${totalRAPR.toFixed(4)}<br>
-                <strong>Total Value:</strong> $${totalValue.toFixed(2)}<br>
-                <strong>Profit/Loss:</strong> $${profitLoss.toFixed(2)}<br>
-                <strong>Breakeven Price:</strong> $${breakeven.toFixed(4)}
+            const investment = parseFloat(document.getElementById('opt1_investment').value);
+            const raprPurchased = parseFloat(document.getElementById('opt1_rapr').value);
+            const apr = parseFloat(document.getElementById('opt1_apr').value);
+            const holdDays = parseInt(document.getElementById('opt1_hold_days').value);
+            const marketPrice = parseFloat(document.getElementById('opt1_market_price').value);
+
+            const dailyInterestRate = apr / 365 / 100;
+            const totalYield = dailyInterestRate * holdDays;
+            const raprEarned = raprPurchased * totalYield;
+            const totalRAPR = raprPurchased + raprEarned;
+            const totalValue = totalRAPR * marketPrice;
+            const profitLoss = totalValue - investment;
+            const breakevenPrice = investment / totalRAPR;
+
+            const resultDiv = document.getElementById('opt1_result');
+            let profitLossClass = profitLoss < 0 ? 'loss' : 'profit';
+
+            resultDiv.innerHTML = `
+                <strong>Total RAPR after hold period:</strong> ${isNaN(totalRAPR) ? 'Check values' : totalRAPR.toFixed(4)} RAPR<br>
+                <strong>Total Value after hold period:</strong> ${isNaN(totalValue) ? 'Check values' : `$${totalValue.toFixed(2)}`}<br>
+                <span class="${profitLossClass}"><strong>${profitLoss < 0 ? 'Loss' : 'Profit'}:</strong> $${isNaN(profitLoss) ? 'Check values' : profitLoss.toFixed(2)}</span><br>
+                <strong>Breakeven Price per RAPR:</strong> $${isNaN(breakevenPrice) ? 'Check values' : breakevenPrice.toFixed(2)}
             `;
         }
 
         function calculateOption2() {
-            let inv = parseFloat(document.getElementById('opt2_inv').value);
-            let rapr = parseFloat(document.getElementById('opt2_rapr').value);
-            let wait = parseInt(document.getElementById('opt2_wait').value);
-            let totalDays = parseInt(document.getElementById('opt2_days').value);
-            let apr = parseFloat(document.getElementById('opt2_apr').value);
-            let mprice = parseFloat(document.getElementById('opt2_mprice').value);
-            let remDays = totalDays - wait;
-            if (remDays < 0) remDays = 0;
-            let dailyRate = apr / 365 / 100;
-            let totalRAPR = rapr + (rapr * dailyRate * remDays);
-            let totalValue = totalRAPR * mprice;
-            let profitLoss = totalValue - inv;
-            let breakeven = inv / totalRAPR;
-            document.getElementById('opt2_result').innerHTML = `
-                <strong>Total RAPR after hold:</strong> ${totalRAPR.toFixed(4)}<br>
-                <strong>Total Value:</strong> $${totalValue.toFixed(2)}<br>
-                <strong>Profit/Loss:</strong> $${profitLoss.toFixed(2)}<br>
-                <strong>Breakeven Price:</strong> $${breakeven.toFixed(4)}
+            const investment = parseFloat(document.getElementById('opt2_investment').value);
+            const raprReceived = parseFloat(document.getElementById('opt2_rapr').value);
+            const waitDays = parseInt(document.getElementById('opt2_wait_days').value);
+            const totalHoldDays = parseInt(document.getElementById('opt2_hold_days').value);
+            const apr = parseFloat(document.getElementById('opt2_apr').value);
+            const marketPrice = parseFloat(document.getElementById('opt2_market_price').value);
+
+            let remainingHoldDays = totalHoldDays - waitDays;
+            remainingHoldDays = remainingHoldDays < 0 ? 0 : remainingHoldDays;
+
+            const dailyInterestRate = apr / 365 / 100;
+            const totalYield = dailyInterestRate * remainingHoldDays;
+            const raprEarned = raprReceived * totalYield;
+            const totalRAPR = raprReceived + raprEarned;
+            const totalValue = totalRAPR * marketPrice;
+            const profitLoss = totalValue - investment;
+            const breakevenPrice = investment / totalRAPR;
+
+            const resultDiv = document.getElementById('opt2_result');
+            let profitLossClass = profitLoss < 0 ? 'loss' : 'profit';
+
+            resultDiv.innerHTML = `
+                <strong>Total RAPR after hold period:</strong> ${isNaN(totalRAPR) ? 'Check values' : totalRAPR.toFixed(4)} RAPR<br>
+                <strong>Total Value after hold period:</strong> ${isNaN(totalValue) ? 'Check values' : `$${totalValue.toFixed(2)}`}<br>
+                <span class="${profitLossClass}"><strong>${profitLoss < 0 ? 'Loss' : 'Profit'}:</strong> $${isNaN(profitLoss) ? 'Check values' : profitLoss.toFixed(2)}</span><br>
+                <strong>Breakeven Price per RAPR:</strong> $${isNaN(breakevenPrice) ? 'Check values' : breakevenPrice.toFixed(2)}
             `;
         }
     </script>
-
 </body>
+
 </html>
