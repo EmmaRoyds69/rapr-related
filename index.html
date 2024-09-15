@@ -12,36 +12,77 @@
     font-family: ALD721L;
     src: url('64e0e163b2b784ad64eb.TTF') format('truetype');
 }
+
 body, html {
     font-family: ALD721L, Arial, sans-serif;
     height: 100%;
     margin: 0;
-    background: url('b03bd4ba416048101131.png') no-repeat center center;
+    background: url('/b03bd4ba416048101131.png') no-repeat center center;
     background-attachment: fixed;
 }
-.container {
-    max-width: 85ch; /* Restrict content width to 85 characters */
-    width: 90%;
-    margin: 20px auto;
+
+#app {
+    display: flex;
+    flex-direction: column;
+    height: 100vh;
+    justify-content: space-between;
+}
+
+#topBar {
+    display: flex;
+    justify-content: space-between;
+    background-color: transparent;
     padding: 10px;
+    position: fixed;
+    width: 100%;
+    z-index: 1001;
+}
+
+#exitButton, #walletButton {
+    background-color: #fff;
+    border: 3px solid #000;
+    color: #000;
+    cursor: pointer;
+    font-family: Slipstream, Arial, sans-serif;
+    padding: 10px;
+    text-align: center;
+    width: 120px;
+}
+
+.center-container {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    flex-grow: 1;
+    margin-top: 60px; /* Space for the topBar */
+}
+
+#content {
+    width: 80ch; /* Restrict content width to 80 characters */
+    max-width: 90%;
+    margin: 0 auto;
     background-color: rgba(255, 255, 255, 0.95);
-    border: 2px solid #000;
+    padding: 20px;
+    border: 3px solid #000;
     box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);
     display: flex;
-    flex-direction: column; /* Ensure each section stacks vertically */
-    gap: 20px; /* Add spacing between sections */
+    flex-direction: column;
+    gap: 20px;
 }
+
 h1, h2 {
     color: #000;
     text-align: center;
     font-family: Slipstream, Arial, sans-serif;
     font-size: 1.5em;
 }
+
 label {
     display: block;
     margin-top: 10px;
     font-size: 0.85em;
 }
+
 input[type="number"] {
     width: 100%;
     padding: 6px;
@@ -50,6 +91,7 @@ input[type="number"] {
     border: 2px solid #000;
     font-size: 0.9em;
 }
+
 button {
     width: 100%;
     padding: 10px;
@@ -59,9 +101,11 @@ button {
     font-size: 1em;
     font-family: Slipstream, Arial, sans-serif;
 }
+
 button:hover {
     background-color: #f0f0f0;
 }
+
 .result {
     margin-top: 20px;
     padding: 10px;
@@ -69,12 +113,30 @@ button:hover {
     border: 2px solid #000;
     font-size: 0.9em;
 }
+
+#footer {
+    text-align: center;
+    background-color: #fff;
+    border-top: 3px solid #000;
+    padding: 10px;
+}
+
+#footer p {
+    margin: 5px 0;
+}
+
+#footer .social a {
+    color: #000;
+    margin: 0 10px;
+    text-decoration: none;
+}
+
 @media (max-width: 480px) {
     h1, h2 {
         font-size: 1.2em;
     }
-    .container {
-        padding: 8px;
+    #content {
+        padding: 10px;
         width: 95%;
     }
     input[type="number"], button {
@@ -84,8 +146,10 @@ button:hover {
     .result {
         font-size: 0.8em;
     }
-}
-    </style>
+    #exitButton, #walletButton {
+        width: 100px;
+    }
+}</style>
 </head>
 <body>
 
