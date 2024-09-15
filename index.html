@@ -16,11 +16,8 @@ body, html {
     font-family: ALD721L, Arial, sans-serif;
     height: 100%;
     margin: 0;
-    background: url('/b03bd4ba416048101131.png') no-repeat center center fixed;
-    background-size: cover;
-    display: flex;
-    justify-content: center;
-    align-items: center;
+    background: url('b03bd4ba416048101131.png') no-repeat center center;
+    background-attachment: fixed;
 }
 .container {
     max-width: 85ch; /* Restrict content width to 85 characters */
@@ -30,6 +27,9 @@ body, html {
     background-color: rgba(255, 255, 255, 0.95);
     border: 2px solid #000;
     box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);
+    display: flex;
+    flex-direction: column; /* Ensure each section stacks vertically */
+    gap: 20px; /* Add spacing between sections */
 }
 h1, h2 {
     color: #000;
