@@ -4,82 +4,87 @@
     <meta charset="UTF-8">
     <title>RAPR Investment Calculator</title>
   <style>
-        @font-face {
-            font-family: Slipstream;
-            src: url('/7046df55374e709021c7.TTF') format('truetype');
-        }
-        @font-face {
-            font-family: ALD721L;
-            src: url('/64e0e163b2b784ad64eb.TTF') format('truetype');
-        }
-        body, html {
-            font-family: ALD721L, Arial, sans-serif;
-            height: 100%;
-            margin: 0;
-            background: url('/b03bd4ba416048101131.png') no-repeat center center fixed;
-            background-size: cover;
-        }
-        .container {
-            max-width: 100%;
-            width: 90%;
-            margin: 20px auto;
-            padding: 10px;
-            background-color: rgba(255, 255, 255, 0.95);
-            border: 2px solid #000;
-            box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);
-        }
-        h1, h2 {
-            color: #000;
-            text-align: center;
-            font-family: Slipstream, Arial, sans-serif;
-            font-size: 1.5em;
-        }
-        label {
-            display: block;
-            margin-top: 10px;
-            font-size: 0.85em;
-        }
-        input[type="number"] {
-            width: 100%;
-            padding: 6px;
-            margin: 5px 0;
-            box-sizing: border-box;
-            border: 2px solid #000;
-            font-size: 0.9em;
-        }
-        button {
-            width: 100%;
-            padding: 10px;
-            background-color: #fff;
-            border: 2px solid #000;
-            cursor: pointer;
-            font-size: 1em;
-            font-family: Slipstream, Arial, sans-serif;
-        }
-        button:hover { background-color: #f0f0f0; }
-        .result {
-            margin-top: 20px;
-            padding: 10px;
-            background-color: #fff;
-            border: 2px solid #000;
-            font-size: 0.9em;
-        }
-        @media (max-width: 480px) {
-            h1, h2 {
-                font-size: 1.2em;
-            }
-            .container {
-                padding: 8px;
-                width: 95%;
-            }
-            input[type="number"], button {
-                font-size: 0.8em;
-                padding: 5px;
-            }
-            .result {
-                font-size: 0.8em;
-            }
-        }
+@font-face {
+    font-family: Slipstream;
+    src: url('7046df55374e709021c7.TTF') format('truetype');
+}
+@font-face {
+    font-family: ALD721L;
+    src: url('64e0e163b2b784ad64eb.TTF') format('truetype');
+}
+body, html {
+    font-family: ALD721L, Arial, sans-serif;
+    height: 100%;
+    margin: 0;
+    background: url('/b03bd4ba416048101131.png') no-repeat center center fixed;
+    background-size: cover;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+.container {
+    max-width: 85ch; /* Restrict content width to 85 characters */
+    width: 90%;
+    margin: 20px auto;
+    padding: 10px;
+    background-color: rgba(255, 255, 255, 0.95);
+    border: 2px solid #000;
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);
+}
+h1, h2 {
+    color: #000;
+    text-align: center;
+    font-family: Slipstream, Arial, sans-serif;
+    font-size: 1.5em;
+}
+label {
+    display: block;
+    margin-top: 10px;
+    font-size: 0.85em;
+}
+input[type="number"] {
+    width: 100%;
+    padding: 6px;
+    margin: 5px 0;
+    box-sizing: border-box;
+    border: 2px solid #000;
+    font-size: 0.9em;
+}
+button {
+    width: 100%;
+    padding: 10px;
+    background-color: #fff;
+    border: 2px solid #000;
+    cursor: pointer;
+    font-size: 1em;
+    font-family: Slipstream, Arial, sans-serif;
+}
+button:hover {
+    background-color: #f0f0f0;
+}
+.result {
+    margin-top: 20px;
+    padding: 10px;
+    background-color: #fff;
+    border: 2px solid #000;
+    font-size: 0.9em;
+}
+@media (max-width: 480px) {
+    h1, h2 {
+        font-size: 1.2em;
+    }
+    .container {
+        padding: 8px;
+        width: 95%;
+    }
+    input[type="number"], button {
+        font-size: 0.8em;
+        padding: 5px;
+    }
+    .result {
+        font-size: 0.8em;
+    }
+}
     </style>
 </head>
 <body>
