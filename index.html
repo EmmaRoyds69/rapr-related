@@ -104,6 +104,33 @@
             font-family: 'Slipstream', Arial, sans-serif;
         }
 
+        .copy-div {
+            display: inline-flex;
+        }
+
+        .copy-btn {
+            padding: 0.5rem;
+            margin-top: 0rem;
+            background-color: #fff;
+            border: none;
+            cursor: pointer;
+            font-size: .75rem;
+            font-family: 'Slipstream', Arial, sans-serif;
+        }
+
+        .tooltip {
+            visibility: hidden;
+            background-color: black;
+            color: #fff;
+            text-align: center;
+            border-radius: .25rem;
+            padding: .25rem;
+            position: absolute;
+            bottom: -0.25rem;
+            left: -1.25rem;
+            white-space: nowrap;
+        }
+
         /* Result Styles */
         .result {
             padding: 0.5rem;
@@ -176,6 +203,16 @@
     <div class="title-container">
         <h1>R-APR Calculator</h1>
         <p><b>BELIEVE IN SOMETHING</b></p>
+        <div class="copy-div">
+            <p>TIPS&nbsp;
+            <p>
+            <p id="textToCopy">69O45ETSRHMO2VWMBBRT4CUMLPHR3SS1765COVX1X6VX</p>
+            <button class="copy-btn" onclick="copyText()" onmouseover="showTooltip(this)" onmouseout="hideTooltip(this)"
+                style="position: relative;">
+                COPY
+                <span class="tooltip">support me</span>
+            </button>
+        </div>
     </div>
 
     <!-- Holding Container -->
@@ -336,6 +373,35 @@
                 <strong>Breakeven:</strong> $${isNaN(breakevenPrice) ? 'Check values' : breakevenPrice.toFixed(2)}
             `;
         }
+        function copyText() {
+            const text = document.getElementById("textToCopy").textContent;
+            if (navigator.clipboard) {
+                navigator.clipboard.writeText(text).catch(() => fallbackCopy(text));
+            } else {
+                fallbackCopy(text);
+            }
+        }
+
+        function fallbackCopy(text) {
+            const textarea = document.createElement("textarea");
+            textarea.value = text;
+            document.body.appendChild(textarea);
+            textarea.select();
+            document.execCommand("copy");
+            document.body.removeChild(textarea);
+        }
+
+        function showTooltip(button) {
+            const tooltip = button.querySelector('.tooltip');
+            tooltip.style.visibility = 'visible';
+        }
+
+        function hideTooltip(button) {
+            const tooltip = button.querySelector('.tooltip');
+            tooltip.style.visibility = 'hidden';
+
+        }
+
     </script>
 </body>
 
