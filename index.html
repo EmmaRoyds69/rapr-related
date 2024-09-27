@@ -21,9 +21,7 @@
         /* Global Styles */
         body,
         html {
-            height: 100%;
-            margin: 0;
-            background: url('bg.png') repeat 50% fixed;
+            background: url('bg.png') repeat 100% fixed;
             background-size: cover;
             font-family: 'ALD721L', Arial, sans-serif;
         }
@@ -223,30 +221,29 @@
             <table>
                 <tr>
                     <td><label for="opt1_investment">Initial Investment ($):</label></td>
-                    <td><input type="number" id="opt1_investment" value="140" step="0.01"
-                            onchange="updateFields('inv', 'opt1')"></td>
+                    <td><input type="number" id="opt1_investment" step="0.01" onchange="updateFields('inv', 'opt1')">
+                    </td>
                 </tr>
                 <tr>
                     <td><label for="opt1_rapr">RAPR Purchased:</label></td>
-                    <td><input type="number" id="opt1_rapr" value="10" step="0.0001"
-                            onchange="updateFields('rapr', 'opt1')"></td>
+                    <td><input type="number" id="opt1_rapr" step="0.01" onchange="updateFields('rapr', 'opt1')"></td>
                 </tr>
                 <tr>
                     <td><label for="opt1_price_per_rapr">Price per RAPR ($):</label></td>
-                    <td><input type="number" id="opt1_price_per_rapr" value="14" step="0.01"
+                    <td><input type="number" id="opt1_price_per_rapr" step="0.01"
                             onchange="updateFields('price', 'opt1')"></td>
                 </tr>
                 <tr>
                     <td><label for="opt1_apr">APR (%):</label></td>
-                    <td><input type="number" id="opt1_apr" value="102" step="0.01"></td>
+                    <td><input type="number" id="opt1_apr" step="0.01"></td>
                 </tr>
                 <tr>
                     <td><label for="opt1_hold_days">Hold Period (days):</label></td>
-                    <td><input type="number" id="opt1_hold_days" value="7" step="1"></td>
+                    <td><input type="number" id="opt1_hold_days" step="1"></td>
                 </tr>
                 <tr>
                     <td><label for="opt1_market_price">Market Price At Sale ($):</label></td>
-                    <td><input type="number" id="opt1_market_price" value="14" step="0.01"></td>
+                    <td><input type="number" id="opt1_market_price" step="0.01"></td>
                 </tr>
                 <tr>
                     <td colspan="2"><button onclick="calculateOption1()">Calculate Buy & Stake</button></td>
@@ -261,40 +258,65 @@
             <table>
                 <tr>
                     <td><label for="opt2_investment">Initial ($):</label></td>
-                    <td><input type="number" id="opt2_investment" value="160" step="0.01"
-                            onchange="updateFields('inv', 'opt2')"></td>
+                    <td><input type="number" id="opt2_investment" step="0.01" onchange="updateFields('inv', 'opt2')">
+                    </td>
                 </tr>
                 <tr>
                     <td><label for="opt2_rapr">RAPR Received:</label></td>
-                    <td><input type="number" id="opt2_rapr" value="13.33" step="0.0001"
-                            onchange="updateFields('rapr', 'opt2')"></td>
+                    <td><input type="number" id="opt2_rapr" step="0.0001" onchange="updateFields('rapr', 'opt2')"></td>
                 </tr>
                 <tr>
                     <td><label for="opt2_price_per_rapr">Price per RAPR ($):</label></td>
-                    <td><input type="number" id="opt2_price_per_rapr" value="12" step="0.01"
+                    <td><input type="number" id="opt2_price_per_rapr" step="0.01"
                             onchange="updateFields('price', 'opt2')"></td>
                 </tr>
                 <tr>
                     <td><label for="opt2_wait_days">Waiting Period (days):</label></td>
-                    <td><input type="number" id="opt2_wait_days" value="3" step="1"></td>
+                    <td><input type="number" id="opt2_wait_days" step="1"></td>
                 </tr>
                 <tr>
                     <td><label for="opt2_hold_days">Hold Period (days):</label></td>
-                    <td><input type="number" id="opt2_hold_days" value="7" step="1"></td>
+                    <td><input type="number" id="opt2_hold_days" step="1"></td>
                 </tr>
                 <tr>
                     <td><label for="opt2_apr">APR (%) for Remaining Period:</label></td>
-                    <td><input type="number" id="opt2_apr" value="102" step="0.01"></td>
+                    <td><input type="number" id="opt2_apr" step="0.01"></td>
                 </tr>
                 <tr>
                     <td><label for="opt2_market_price">Market Price At Sale ($):</label></td>
-                    <td><input type="number" id="opt2_market_price" value="14" step="0.01"></td>
+                    <td><input type="number" id="opt2_market_price" step="0.01"></td>
                 </tr>
                 <tr>
                     <td colspan="2"><button onclick="calculateOption2()">Calculate Tickets & Hold</button></td>
                 </tr>
             </table>
             <div id="opt2_result" class="result"></div>
+        </div>
+        <!-- Switch Rate -->
+        <div>
+            <h2>Rate Switch Compare</h2>
+            <table>
+                <tr>
+                    <td><label for="compare_rapr">RAPR:</label></td>
+                    <td><input type="number" id="compare_rapr" step="0.01"></td>
+                </tr>
+                <tr>
+                    <td><label for="compare_apr1">Current APR:</label></td>
+                    <td><input type="number" id="compare_apr1" step="0.01"></td>
+                </tr>
+                <tr>
+                    <td><label for="compare_apr2">New APR:</label></td>
+                    <td><input type="number" id="compare_apr2" step="0.01"></td>
+                </tr>
+                <tr>
+                    <td><label for="opt3_hold_days">Hold Period (days):</label></td>
+                    <td><input type="number" id="opt3_hold_days" step="1"></td>
+                </tr>
+                <tr>
+                    <td colspan="2"><button onclick="calculateReturnDifference()">Calculate Rate Switch</button></td>
+                </tr>
+            </table>
+            <div id="opt3_result" class="result"></div>
         </div>
     </div>
 
@@ -372,6 +394,38 @@
                 <span class="${profitLossClass}"><strong>${profitLoss < 0 ? 'Loss' : 'Profit'}:</strong> $${isNaN(profitLoss) ? 'Check values' : profitLoss.toFixed(2)}</span><br>
                 <strong>Breakeven:</strong> $${isNaN(breakevenPrice) ? 'Check values' : breakevenPrice.toFixed(2)}
             `;
+        }
+
+        function calculateReturnDifference() {
+            const raprStaked = parseFloat(document.getElementById('compare_rapr').value);
+            const apr1 = parseFloat(document.getElementById('compare_apr1').value);  // Changed to parseFloat
+            const apr2 = parseFloat(document.getElementById('compare_apr2').value);  // Changed to parseFloat
+            const hold_days = parseFloat(document.getElementById('opt3_hold_days').value);
+
+            // Convert APR from percentage to decimal (i.e., 5% becomes 0.05)
+            let apr1Decimal = apr1 / 100;
+            let apr2Decimal = apr2 / 100;
+
+            // Calculate daily rate (APR is yearly, so we divide by 365)
+            let dailyRate1 = apr1Decimal / 365;
+            let dailyRate2 = apr2Decimal / 365;
+
+            // Calculate returns for each APR over the given period
+            const return1 = raprStaked * (dailyRate1 * hold_days);
+            const return2 = raprStaked * (dailyRate2 * hold_days);
+            const profitLoss = return2 - return1;
+
+            const resultDiv = document.getElementById('opt3_result');
+            let profitLossClass = profitLoss < 0 ? 'loss' : 'profit';
+
+            resultDiv.innerHTML = `
+                <strong>Current rate:</strong> ${isNaN(return1) ? 'Check values' : return1.toFixed(2)}<br>
+                <strong>Alternate rate:</strong> ${isNaN(return2) ? 'Check values' : `${return2.toFixed(2)}`}<br>
+                <span class="${profitLossClass}"><strong>${profitLoss < 0 ? 'Loss' : 'Profit'}:</strong> ${isNaN(profitLoss) ? 'Check values' : profitLoss.toFixed(2)}</span><br> 
+                <span><p style="text-align: center;">✨🌊 Rituals flow like whispers to angels.</br>🕊️💫 Dolphins swim through stars, belief is a cosmic dance. 🌟💧</p></span><br> 
+            `;
+
+
         }
         function copyText() {
             const text = document.getElementById("textToCopy").textContent;
